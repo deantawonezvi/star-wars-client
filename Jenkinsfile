@@ -29,7 +29,7 @@ try {
 
    }
 
-   docker.withRegistry('https://ghcr.io', gitHubCredentials) {
+   docker.withRegistry('https://ghcr.io', githubCredentials) {
 
    def dockerImage;
 
