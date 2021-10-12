@@ -1,22 +1,19 @@
-FROM node:lts as dependencies
-WORKDIR /star-wars-client
-COPY package.json package-lock.json ./
-RUN npm install --frozen-lockfile
+# Dockerfile
 
-FROM node:lts as builder
-WORKDIR /star-wars-client
-COPY . .
-COPY --from=dependencies /star-wars-client/node_modules ./node_modules
-RUN npm build
+# base image
+FROM node:alpine
 
-FROM node:lts as runner
-WORKDIR /star-wars-client
-ENV NODE_ENV production
+# create & set working directory
+RUN mkdir -p /usr/src
+WORKDIR /usr/src
 
-COPY --from=builder /star-wars-client/public ./public
-COPY --from=builder /star-wars-client/.next ./.next
-COPY --from=builder /star-wars-client/node_modules ./node_modules
-COPY --from=builder /star-wars-client/package.json ./package.json
+# copy source files
+COPY . /usr/src
 
+# install dependencies
+RUN npm install
+
+# start app
+RUN npm run build
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD npm run start
