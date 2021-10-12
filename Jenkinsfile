@@ -6,7 +6,7 @@ node {
    def deploymentServer = 'dean@deant.work'
    def serviceName = 'star-wars-client'
    def deploymentPath = "/opt/apps/${serviceName}"
-   def gitCredentials = 'ci_checkout'
+   def githubCredentials = 'githubCredentials'
    def dockerRegistry = "ghcr.io/deantawonezvi/star-wars-client"
    def slackToken = "slackToken"
 try {
