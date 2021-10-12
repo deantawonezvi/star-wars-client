@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  star-wars-client:
+    container_name: star-wars-client
+    restart: unless-stopped
+    image: registry.gitlab.com/tv-yako/client-web-app:${BRANCH}-${APP_VERSION}
+    networks:
+      - proxy
+    expose:
+      - 3000
+    labels:
+      ##- traefik.http.routers.star-wars-client.rule=Host(`star-wars-client.deant.work`) || Host(`www.star-wars.deant.work`)
+      ##Set the lowest routing priority == 1
+      ##This will solve the overlap with api routes
+      ##- traefik.http.routers.star-wars-client.priority=1
+      ##HTTPS
+      - "traefik.enable=true"
+      - "traefik.http.routers.star-wars-client.entrypoints=websecure"
+      - "traefik.http.routers.star-wars-client.rule=Host(`star-wars.deant.work`)"
+      - "traefik.http.middlewares.star-wars-client-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.star-wars-client-secure.entrypoints=websecure"
+      - "traefik.http.routers.star-wars-client-secure.rule=Host(`star-wars.deant.work`)"
+      - "traefik.http.routers.star-wars-client-secure.tls=true"
+      - "traefik.http.routers.star-wars-client-secure.tls.certresolver=http"
+      - "traefik.docker.network=proxy"
+    env_file:
+      - .env
+
+networks:
+  proxy:
+    external: true
