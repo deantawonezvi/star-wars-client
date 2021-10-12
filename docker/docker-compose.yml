@@ -4,7 +4,7 @@ services:
   star-wars-client:
     container_name: star-wars-client
     restart: unless-stopped
-    image: registry.gitlab.com/tv-yako/client-web-app:${BRANCH}-${APP_VERSION}
+    image: ghcr.io/deantawonezvi/star-wars-client:${BRANCH}-${APP_VERSION}
     networks:
       - proxy
     expose:
