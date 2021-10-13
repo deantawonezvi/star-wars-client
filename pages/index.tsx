@@ -2,21 +2,49 @@ import type {NextPage} from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import {gql, useQuery} from "@apollo/client";
-import {Box, Heading, SimpleGrid, Spinner} from "@chakra-ui/react"
+import {gql, useQuery,NetworkStatus} from "@apollo/client";
+import {Box, Button, Heading, SimpleGrid, Spinner} from "@chakra-ui/react"
 
-const QUERY = gql`
-    query People {
-        people(page:3) {
+
+let pageNumber = 1
+const GET_PEOPLE = gql`
+    query People($pageNumber:Float!) {
+        people(page:$pageNumber) {
             name
         }
     }
 `;
 
 const Home: NextPage = () => {
-    const { data, loading, error } = useQuery(QUERY);
 
-    if (loading) {
+    const { data, loading, error, refetch,networkStatus } = useQuery(GET_PEOPLE,{
+        variables:{pageNumber:pageNumber},
+        notifyOnNetworkStatusChange: true,
+    });
+
+    let handleNextClick = () => {
+        if(pageNumber == 9) return;
+        pageNumber +=1
+
+        refetch({
+            pageNumber:pageNumber
+        })
+        console.log(pageNumber);
+    }
+
+    let handlePreviousClick = () => {
+        if(pageNumber == 1) return;
+
+        pageNumber -=1
+
+        refetch({
+            pageNumber:pageNumber
+        })
+        console.log(pageNumber);
+    }
+
+
+    if (loading || networkStatus === NetworkStatus.refetch) {
         return (
             <div className={styles.container}>
                 <Image src="/star-wars.svg" alt="Star Wars Logo" width={120} height={120} />
@@ -49,9 +77,13 @@ const Home: NextPage = () => {
                   </Box>
               ))}
               </SimpleGrid>
-
-
-
+            <br/>
+          <Button onClick={handleNextClick}  colorScheme="black" variant="outline">
+              Next Page
+          </Button>
+          <Button onClick={handlePreviousClick}  colorScheme="black" variant="outline">
+              Previous Page
+          </Button>
       </main>
 
     </div>
