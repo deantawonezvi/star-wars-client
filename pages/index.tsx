@@ -1,9 +1,30 @@
-import type { NextPage } from 'next'
+import type {NextPage} from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import {gql, useQuery} from "@apollo/client";
+import {Box, Heading, SimpleGrid} from "@chakra-ui/react"
+
+const QUERY = gql`
+    query People {
+        people {
+            name
+        }
+    }
+`;
 
 const Home: NextPage = () => {
+    const { data, loading, error } = useQuery(QUERY);
+
+    if (loading) {
+        return <h2>Loading...</h2>;
+    }
+
+    if (error) {
+        console.error(error);
+        return null;
+    }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -13,14 +34,23 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Star Wars!
-        </h1>
+          <Image src="/star-wars.svg" alt="Star Wars Logo" width={120} height={120} />
+
+              <SimpleGrid columns={2} spacing={10}>
+              {data.people.map((person:any) =>(
+                  <Box key={person.name} maxW="sm" p={6} borderWidth="1px" borderRadius="md" overflow="hidden">
+                      <Heading mb="0" as="h4" size="md">{person.name}</Heading>
+                  </Box>
+              ))}
+              </SimpleGrid>
+
+
 
       </main>
 
     </div>
   )
 }
+
 
 export default Home
