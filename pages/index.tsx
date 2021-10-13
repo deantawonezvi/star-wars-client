@@ -3,7 +3,8 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {gql, useQuery,NetworkStatus} from "@apollo/client";
-import {Box, Button, Heading, SimpleGrid, Spinner} from "@chakra-ui/react"
+import {Box, Button, Heading, IconButton, SimpleGrid, Spinner, Stack} from "@chakra-ui/react"
+import {ArrowBackIcon, ArrowForwardIcon, SearchIcon} from "@chakra-ui/icons";
 
 
 let pageNumber = 1
@@ -78,12 +79,15 @@ const Home: NextPage = () => {
               ))}
               </SimpleGrid>
             <br/>
-          <Button onClick={handleNextClick}  colorScheme="black" variant="outline">
-              Next Page
-          </Button>
-          <Button onClick={handlePreviousClick}  colorScheme="black" variant="outline">
-              Previous Page
-          </Button>
+
+          <Stack direction="row" spacing={4}>
+              {pageNumber > 1 &&
+              <IconButton onClick={handlePreviousClick} aria-label="Previous Page" icon={<ArrowBackIcon />} colorScheme="black" variant="outline" />
+              }
+          <IconButton onClick={handleNextClick} aria-label="Next Page" icon={<ArrowForwardIcon />} colorScheme="black" variant="outline" />
+
+
+          </Stack>
       </main>
 
     </div>
