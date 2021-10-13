@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {gql, useQuery} from "@apollo/client";
-import {Box, Heading, SimpleGrid} from "@chakra-ui/react"
+import {Box, Heading, SimpleGrid, Spinner} from "@chakra-ui/react"
 
 const QUERY = gql`
     query People {
@@ -17,7 +17,13 @@ const Home: NextPage = () => {
     const { data, loading, error } = useQuery(QUERY);
 
     if (loading) {
-        return <h2>Loading...</h2>;
+        return (
+            <div className={styles.container}>
+                <Image src="/star-wars.svg" alt="Star Wars Logo" width={120} height={120} />
+                <Spinner />
+            </div>
+
+        )
     }
 
     if (error) {
