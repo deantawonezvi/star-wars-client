@@ -7,7 +7,7 @@ import {Box, Heading, SimpleGrid} from "@chakra-ui/react"
 
 const QUERY = gql`
     query People {
-        people {
+        people(page:3) {
             name
         }
     }
