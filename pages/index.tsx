@@ -15,7 +15,8 @@ import {
     IconButton,
     SimpleGrid,
     Spinner,
-    Stack
+    Stack,
+    Text
 } from "@chakra-ui/react"
 import {ArrowBackIcon, ArrowForwardIcon, SearchIcon} from "@chakra-ui/icons";
 
@@ -129,17 +130,34 @@ const Home: NextPage = () => {
                 </SimpleGrid>
                 <br/>
 
-                <Stack direction="row" spacing={4}>
+                <Stack direction="row" spacing={4} align="stretch">
                     {pageNumber > 1 &&
                     <IconButton onClick={handlePreviousClick} aria-label="Previous Page" icon={<ArrowBackIcon/>}
                                 colorScheme="black" variant="outline"/>
+
                     }
+                    <Text fontSize="sm" fontWeight="bold" p={2}>
+                        {pageNumber}
+                    </Text>
+
                     <IconButton onClick={handleNextClick} aria-label="Next Page" icon={<ArrowForwardIcon/>}
                                 colorScheme="black" variant="outline"/>
 
 
                 </Stack>
             </main>
+
+            <footer className={styles.footer}>
+                <a
+                    href="https://github.com/deantawonezvi/star-wars-client"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span className={styles.logo}>
+            <Image src="/github.svg" alt="Github Logo" width={72} height={48} />
+          </span>
+                </a>
+            </footer>
 
         </div>
     )

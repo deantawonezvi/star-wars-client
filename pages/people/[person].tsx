@@ -4,6 +4,7 @@ import styles from "../../styles/Home.module.css";
 import Image from "next/image";
 import {Alert, AlertDescription, AlertIcon, AlertTitle, Heading, Link, Spinner,Box} from "@chakra-ui/react";
 import Head from "next/head";
+import _ from "lodash";
 
 
 const GET_PERSON = gql`
@@ -88,8 +89,8 @@ const Person = () => {
 
                 <p>Height: {data.person.height}</p>
                 <p>Mass: {data.person.mass}</p>
-                <p>Gender: {data.person.gender}</p>
-                <p>HomeWorld: {data.person.homeworld}</p>
+                <p>Gender: {_.capitalize(data.person.gender)}</p>
+                <p>Home World: {data.person.homeworld}</p>
                 </Box>
             </main>
         </div>
