@@ -15,6 +15,12 @@ a {
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: "DeathStar";
+  src: url("/fonts/DeathStar.ttf");
+  font-style: normal;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
