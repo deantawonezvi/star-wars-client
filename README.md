@@ -3,7 +3,7 @@
 # Star Wars Client
 
 
-**Client: https://star-wars-client.deant.work/graphql**
+**Client: https://star-wars-client.deant.work**
 
 **GitHub Container Registry:`ghcr.io/deantawonezvi/star-wars-client:0.0.7`**
 
