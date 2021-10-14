@@ -2,7 +2,8 @@ import {useRouter} from 'next/router'
 import {gql, NetworkStatus, useQuery} from "@apollo/client";
 import styles from "../../styles/Home.module.css";
 import Image from "next/image";
-import {Alert, AlertDescription, AlertIcon, AlertTitle, Heading, Link, Spinner,Box} from "@chakra-ui/react";
+import Link from 'next/link';
+import {Alert, AlertDescription, AlertIcon, AlertTitle, Heading, Spinner, Box,Text} from "@chakra-ui/react";
 import Head from "next/head";
 import _ from "lodash";
 
@@ -55,7 +56,7 @@ const Person = () => {
                         mr={10}
                         ml={10}
                     >
-                        <AlertIcon boxSize="40px" mr={0} />
+                        <AlertIcon boxSize="40px" mr={0}/>
                         <AlertTitle mt={4} mb={1} fontSize="lg">
                             This one could not be found!
                         </AlertTitle>
@@ -82,15 +83,36 @@ const Person = () => {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
             <main className={styles.main}>
-                <Box maxW="sm" p={6} borderWidth="1px" borderRadius="md" overflow="hidden"
+                <Link href="/">
+                    <Image src="/star-wars.svg" alt="Star Wars Logo" width={120} height={120}/>
+                </Link>
+
+                <Box maxW="sm" p={10} borderWidth="1px" borderRadius="lg" overflow="hidden"
                      boxShadow="base">
-                <Heading mb="0" as="a" size="lg" fontFamily="DeathStar">{person}</Heading>
+                    <Heading mb="0" as="a" size="lg" fontFamily="DeathStar">{person}</Heading>
+                    <br/>
+                    <hr/>
                     <br/>
 
-                <p>Height: {data.person.height}</p>
-                <p>Mass: {data.person.mass}</p>
-                <p>Gender: {_.capitalize(data.person.gender)}</p>
-                <p>Home World: {data.person.homeworld}</p>
+                    <Text fontSize="lg">📏</Text>
+                    <Text fontSize="lg">Height: {_.capitalize(data.person.height)}</Text>
+                    <br/>
+
+                    <Text fontSize="lg">⚖️</Text>
+                    <Text fontSize="lg">Mass: {_.capitalize(data.person.mass)}</Text>
+                    <br/>
+
+
+                    <Text fontSize="lg">{data.person.gender == 'n/a' || data.person.gender == 'none' ? (
+                        <p>🤖</p>
+
+                    ) : (
+                        <p>🧑🏽</p>
+                    )} Gender: {_.capitalize(data.person.gender)}</Text>
+                    <br/>
+
+                    <Text fontSize="lg">🌐</Text>
+                    <Text fontSize="lg">Home World: {_.capitalize(data.person.homeworld)}</Text>
                 </Box>
             </main>
         </div>
