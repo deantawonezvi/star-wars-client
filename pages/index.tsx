@@ -86,7 +86,7 @@ const Home: NextPage = () => {
                     >
                         <AlertIcon boxSize="40px" mr={0}/>
                         <AlertTitle mt={4} mb={1} fontSize="lg">
-                            This one could not be found!
+                            Sorry!
                         </AlertTitle>
                         <AlertDescription maxWidth="sm">
                             Oops something went wrong!
