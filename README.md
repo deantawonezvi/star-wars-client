@@ -5,7 +5,7 @@
 
 **Client: https://star-wars.deant.work**
 
-**GitHub Container Registry:`ghcr.io/deantawonezvi/star-wars-client:0.1.0`**
+**GitHub Container Registry:`ghcr.io/deantawonezvi/star-wars-client:0.1.1`**
 
 </div>
 
